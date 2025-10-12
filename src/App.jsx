@@ -10,15 +10,17 @@ export default function App() {
   
   // Collect all project images for hero background
   const allProjectImages = IMAGES.projects.flatMap(project => [project.image, project.imageAlt]);
+  // Show only images at indices 2, 3, and 4
+  const heroImages = allProjectImages.slice(2, 5);
   
   // Auto-rotate hero background images
   useEffect(() => {
     const interval = setInterval(() => {
-      setHeroImageIndex(prev => (prev + 1) % allProjectImages.length);
+      setHeroImageIndex(prev => (prev + 1) % heroImages.length);
     }, 3000); // Change every 3 seconds
     
     return () => clearInterval(interval);
-  }, [allProjectImages.length]);
+  }, [heroImages.length]);
   
   // Auto-rotate images on mobile devices
   useEffect(() => {
@@ -53,7 +55,7 @@ export default function App() {
       {/* Hero Section */}
       <header className="relative overflow-hidden">
         {/* Background Image Slideshow */}
-        {allProjectImages.map((image, index) => (
+        {heroImages.map((image, index) => (
           <div
             key={index}
             className="absolute inset-0 transition-opacity duration-1000"
