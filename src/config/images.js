@@ -11,7 +11,7 @@ export const IMAGES = {
       title: '6714 Calvados Ave, Jacksonville, FL 32205',
       description: 'Complete remodel • 2024',
       location: 'Jacksonville, FL',
-      zillowUrl: 'https://www.zillow.com/homedetails/6714-Calvados-Ave-Jacksonville-FL-32205/44414798_zpid/?utm_campaign=iosappmessage&utm_medium=referral&utm_source=txtshare'
+      zillowUrl: 'https://hotpads.com/6714-calvados-ave-jacksonville-fl-32205-1jy0sjm/pad'
     },
     {
       id: 2,
