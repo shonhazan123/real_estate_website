@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, Mail, Home, Hammer, Droplets, Trees, CheckCircle, ArrowRight, Warehouse, Wind } from 'lucide-react';
+import { Phone, Mail, Home, Hammer, Droplets, Trees, CheckCircle, ArrowRight, Warehouse, Wind, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { IMAGES } from './config/images';
 
 export default function App() {
@@ -7,6 +7,7 @@ export default function App() {
   const [hoveredProject, setHoveredProject] = useState(null);
   const [mobileImageIndex, setMobileImageIndex] = useState({});
   const [heroImageIndex, setHeroImageIndex] = useState(0);
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
   
   // Collect all project images for hero background
   const allProjectImages = IMAGES.projects.flatMap(project => [project.image, project.imageAlt]);
@@ -49,6 +50,54 @@ export default function App() {
     { icon: Warehouse, title: "Roofing", desc: "Expert roof installation, repair, and replacement" },
     { icon: Wind, title: "HVAC", desc: "Heating, ventilation, and air conditioning services" }
   ];
+
+  const testimonials = [
+    {
+      name: "David Cohen",
+      location: "Tel Aviv, Israel",
+      text: "Shon transformed our investment property beyond expectations. His attention to detail and communication throughout the project was outstanding. Highly recommend for any real estate investor.",
+      rating: 5
+    },
+    {
+      name: "Sarah Johnson",
+      location: "Jacksonville, FL",
+      text: "Working with SH Elite Estate was a game-changer for our fix & flip. They handled everything from permits to final touches. Professional, reliable, and delivered on time.",
+      rating: 5
+    },
+    {
+      name: "Michael Ben-David",
+      location: "Miami, FL",
+      text: "As an Israeli-American investor, I needed someone who understood both markets. Shon's expertise in working with hard money lenders made our project seamless and profitable.",
+      rating: 5
+    },
+    {
+      name: "Rachel Williams",
+      location: "Orlando, FL",
+      text: "The quality of work is exceptional. They turned our outdated property into a modern masterpiece. Every detail was perfect, and the project was completed ahead of schedule.",
+      rating: 5
+    },
+    {
+      name: "Avi Levy",
+      location: "Boca Raton, FL",
+      text: "Shon's team delivered exactly what they promised. The renovation exceeded our ROI projections. Professional service from start to finish. Will definitely work with them again.",
+      rating: 5
+    },
+    {
+      name: "Jennifer Martinez",
+      location: "Tampa, FL",
+      text: "Outstanding workmanship and project management. They coordinated all trades perfectly and kept us informed every step of the way. Our property value increased significantly.",
+      rating: 5
+    }
+  ];
+
+  // Auto-rotate testimonials
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTestimonialIndex(prev => (prev + 1) % testimonials.length);
+    }, 5000); // Change every 5 seconds
+    
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
 
   return (
     <div className="min-h-screen bg-white text-gray-800">
@@ -263,6 +312,58 @@ export default function App() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-blue-900">
+            What Our Clients Say
+          </h2>
+          <p className="text-center text-gray-600 mb-16 text-lg">Real feedback from satisfied investors and homeowners</p>
+          
+          <div className="max-w-4xl mx-auto">
+            <div className="relative">
+              {/* Testimonial Display */}
+              <div className="bg-gray-50 rounded-2xl p-8 md:p-12 shadow-lg border border-gray-200 min-h-[300px] flex flex-col justify-center">
+                <div className="text-center">
+                  {/* Stars */}
+                  <div className="flex justify-center mb-6">
+                    {[...Array(testimonials[testimonialIndex].rating)].map((_, i) => (
+                      <Star key={i} size={24} className="text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                  
+                  {/* Testimonial Text */}
+                  <blockquote className="text-xl md:text-2xl text-gray-700 italic mb-8 leading-relaxed">
+                    "{testimonials[testimonialIndex].text}"
+                  </blockquote>
+                  
+                  {/* Client Info */}
+                  <div className="text-center">
+                    <p className="text-lg font-bold text-blue-900">{testimonials[testimonialIndex].name}</p>
+                    <p className="text-gray-600">{testimonials[testimonialIndex].location}</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Navigation Dots */}
+              <div className="flex justify-center mt-8 space-x-2">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setTestimonialIndex(index)}
+                    className={`w-3 h-3 rounded-full transition-all ${
+                      index === testimonialIndex 
+                        ? 'bg-orange-600 scale-125' 
+                        : 'bg-gray-300 hover:bg-gray-400'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Why Choose Us Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
@@ -313,7 +414,19 @@ export default function App() {
                     <Phone size={24} className="text-white" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">Call or Text</p>
+                    <p className="text-sm text-gray-600">Call or Text (Israel)</p>
+                    <a href="tel:+972543911602" className="text-xl font-semibold text-blue-900 hover:text-orange-600 transition-colors">
+                      +972 54-391-1602
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all border border-gray-200">
+                  <div className="bg-orange-600 p-3 rounded-lg">
+                    <Phone size={24} className="text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">Call or Text (US)</p>
                     <a href="tel:9048499701" className="text-xl font-semibold text-blue-900 hover:text-orange-600 transition-colors">
                       (904) 849-9701
                     </a>
